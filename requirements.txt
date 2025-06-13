@@ -1,7 +1,7 @@
-numpy
-scikit-learn
-pandas
-pickle
-xgboost
 streamlit
+numpy
+pandas
+scikit-learn
+xgboost
+gdown
 Pillow
