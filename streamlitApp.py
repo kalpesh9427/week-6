@@ -3,6 +3,8 @@ import streamlit as st
 import pickle
 import numpy as np
 import pandas as pd
+import os
+import gdown
 from PIL import Image
 
 # Set the page configuration of the app
@@ -26,12 +28,17 @@ st.caption(
     "to generate forecasts, enabling better inventory management and faster deliveries."
 )
 
-# Load the trained ensemble model from the saved pickle file
-modelfile = "./voting_model.pkl"
-
+# Load the trained ensemble model from Google Drive
 @st.cache_resource
 def load_model():
-    with open(modelfile, "rb") as file:
+    model_path = "voting_model.pkl"
+    file_id = "1FKcK2AcbdbGNOhpZLiPa4e2wM8ZSLJoY"
+    url = f"https://drive.google.com/uc?id={file_id}"
+
+    if not os.path.exists(model_path):
+        gdown.download(url, model_path, quiet=False)
+
+    with open(model_path, "rb") as file:
         return pickle.load(file)
 
 voting_model = load_model()
